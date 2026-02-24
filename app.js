@@ -2,28 +2,48 @@ const sendBtn = document.getElementById('sendBtn');
 const messageInput = document.getElementById('messageInput');
 const chatBox = document.getElementById('chatBox');
 
-// మనం మెసేజ్ పంపే బటన్ నొక్కినప్పుడు
+// 1. మెసేజ్ పంపే లాజిక్ (లోకల్ గా)
 sendBtn.addEventListener('click', () => {
     const text = messageInput.value.trim();
     
     if (text !== "") {
-        // కొత్త మెసేజ్ బాక్స్ ని క్రియేట్ చేయడం
         const msgDiv = document.createElement('div');
         msgDiv.className = 'message sent';
         msgDiv.innerText = text;
         
-        // ఆ మెసేజ్ ని స్క్రీన్ మీద యాడ్ చేయడం
         chatBox.appendChild(msgDiv);
-        
-        // బాక్స్ ఖాళీ చేయడం
         messageInput.value = '';
-        
-        // కొత్త మెసేజ్ రాగానే ఆటోమేటిక్ గా కిందకు స్క్రోల్ అవ్వడం
         chatBox.scrollTop = chatBox.scrollHeight; 
     }
 });
 
-// వీడియో కాల్ బటన్ నొక్కినప్పుడు (ఇది నెక్స్ట్ స్టెప్ లో చేద్దాం)
-document.getElementById('videoCallBtn').addEventListener('click', () => {
-    alert("వీడియో కాల్ ఫీచర్ నెక్స్ట్ యాడ్ చేద్దాం!");
-});
+// 2. గ్రూప్ కాల్ స్టార్ట్ చేసే లాజిక్ (ZegoCloud)
+function startCall() {
+    // మీరు ఇచ్చిన ఐడీలు
+    const appID = 1499174615; 
+    const serverSecret = "91716d1342605904fe8fe37eca9ffa51"; 
+    
+    // రూమ్ మరియు యూజర్ డీటెయిల్స్
+    const roomID = "WorldOfGod_GroupCall"; 
+    const userID = Math.floor(Math.random() * 10000).toString(); // రాండమ్ ఐడీ
+    const userName = "User_" + userID;
+
+    // టోకెన్ క్రియేట్ చేయడం
+    const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
+    
+    const zp = ZegoUIKitPrebuilt.create(kitToken);
+    
+    // కాలింగ్ స్క్రీన్ ని చూపించడం
+    zp.joinRoom({
+        container: document.getElementById('chatBox'), // చాట్ స్క్రీన్ పైనే కాల్ వస్తుంది
+        scenario: {
+            mode: ZegoUIKitPrebuilt.GroupCall, // గ్రూప్ కాల్
+        },
+        showScreenSharingButton: false, // మొబైల్ కి అవసరం లేదు
+        showPreJoinView: false // డైరెక్ట్ గా కాల్లోకి వెళ్ళడానికి
+    });
+}
+
+// కాల్ బటన్స్ కి ఫంక్షన్ కనెక్ట్ చేసాం
+document.getElementById('videoCallBtn').addEventListener('click', startCall);
+document.getElementById('audioCallBtn').addEventListener('click', startCall);
