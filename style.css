@@ -6,7 +6,7 @@
 
 body { 
     font-family: sans-serif; 
-    background-color: #e5ddd5; /* వాట్సాప్ వెబ్ బ్యాక్‌గ్రౌండ్ రంగు */
+    background-color: #e5ddd5; 
     display: flex; 
     justify-content: center; 
     height: 100vh; 
@@ -14,21 +14,23 @@ body {
 
 .app-container { 
     width: 100%; 
-    max-width: 500px; /* మొబైల్ సైజ్ లో ఉండటానికి */
+    max-width: 500px; 
     background: #fff; 
     display: flex; 
     flex-direction: column; 
     height: 100vh; 
     box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+    position: relative;
 }
 
 .chat-header { 
-    background-color: #075e54; /* వాట్సాప్ గ్రీన్ రంగు */
+    background-color: #075e54; 
     color: white; 
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
     padding: 10px 15px; 
+    z-index: 10;
 }
 
 .user-info { 
@@ -65,11 +67,11 @@ body {
     flex: 1; 
     padding: 20px; 
     overflow-y: auto; 
-    /* వాట్సాప్ చాట్ బ్యాక్‌గ్రౌండ్ ఇమేజ్ */
     background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); 
     display: flex; 
     flex-direction: column; 
     gap: 10px; 
+    position: relative;
 }
 
 .message { 
@@ -78,6 +80,7 @@ body {
     max-width: 80%; 
     font-size: 15px; 
     word-wrap: break-word; 
+    z-index: 1;
 }
 
 .received { 
@@ -87,7 +90,7 @@ body {
 }
 
 .sent { 
-    background-color: #dcf8c6; /* మనం పంపే మెసేజ్ కి గ్రీన్ కలర్ */
+    background-color: #dcf8c6; 
     align-self: flex-end; 
     border-top-right-radius: 0; 
 }
@@ -97,6 +100,7 @@ body {
     padding: 10px; 
     background: #f0f0f0; 
     gap: 10px; 
+    z-index: 10;
 }
 
 #messageInput { 
