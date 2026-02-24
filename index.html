@@ -3,42 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Meet Clone</title>
+    <title>WhatsApp Clone</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .connect-box { background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        input { padding: 10px; margin-right: 10px; border: 1px solid #ccc; border-radius: 4px; }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Mana Video Calling App</h1>
-        
-        <div class="connect-box">
-            <p>మీ సీక్రెట్ ID: <strong id="myId" style="color: green;">లోడ్ అవుతోంది...</strong></p>
-            <input type="text" id="friendId" placeholder="మీ ఫ్రెండ్ ID ఇక్కడ ఇవ్వండి">
-            <button id="callBtn" disabled>కాల్ చేయి</button>
-        </div>
-
-        <div class="controls">
-            <button id="startBtn">కెమెరా ఆన్ చేయి</button>
-            <button id="muteBtn" disabled>Mic Off</button>
-            <button id="videoBtn" disabled>Video Off</button>
-        </div>
-
-        <div class="video-container">
-            <div class="video-box">
-                <h3>మీరు</h3>
-                <video id="localVideo" autoplay muted playsinline></video>
+    <div class="app-container">
+        <header class="chat-header">
+            <div class="user-info">
+                <div class="avatar">G</div>
+                <div class="name-status">
+                    <h2>మన గ్రూప్</h2>
+                    <p>ఆన్‌లైన్</p>
+                </div>
             </div>
-            <div class="video-box">
-                <h3>మీ ఫ్రెండ్</h3>
-                <video id="remoteVideo" autoplay playsinline></video>
+            <div class="header-icons">
+                <button id="videoCallBtn">📹</button>
+                <button id="audioCallBtn">📞</button>
             </div>
-        </div>
+        </header>
+
+        <main class="chat-box" id="chatBox">
+            <div class="message received">హాయ్! గ్రూప్ కాలింగ్ యాప్ రెడీ అవుతోందా?</div>
+            <div class="message sent">అవును, డిజైన్ స్టార్ట్ చేశాను!</div>
+        </main>
+
+        <footer class="chat-input">
+            <input type="text" id="messageInput" placeholder="మెసేజ్ టైప్ చేయండి...">
+            <button id="sendBtn">➤</button>
+        </footer>
     </div>
 
-    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
