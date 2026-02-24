@@ -1,48 +1,120 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
+body { 
+    font-family: sans-serif; 
+    background-color: #e5ddd5; /* వాట్సాప్ వెబ్ బ్యాక్‌గ్రౌండ్ రంగు */
+    display: flex; 
+    justify-content: center; 
+    height: 100vh; 
 }
 
-h1 {
-    color: #333;
+.app-container { 
+    width: 100%; 
+    max-width: 500px; /* మొబైల్ సైజ్ లో ఉండటానికి */
+    background: #fff; 
+    display: flex; 
+    flex-direction: column; 
+    height: 100vh; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
 }
 
-.video-wrapper {
-    margin: 20px 0;
-    background-color: #000;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+.chat-header { 
+    background-color: #075e54; /* వాట్సాప్ గ్రీన్ రంగు */
+    color: white; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 10px 15px; 
 }
 
-#localVideo {
-    width: 100%;
-    max-width: 600px;
-    transform: scaleX(-1); /* అద్దంలో లాగా మనల్ని మనం చూసుకోవడానికి */
+.user-info { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
 }
 
-.controls {
-    margin-top: 20px;
+.avatar { 
+    width: 40px; 
+    height: 40px; 
+    background: #ccc; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-weight: bold; 
+    color: #333; 
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.name-status h2 { font-size: 16px; margin: 0; }
+.name-status p { font-size: 12px; margin: 0; opacity: 0.8; }
+
+.header-icons button { 
+    background: none; 
+    border: none; 
+    color: white; 
+    font-size: 20px; 
+    margin-left: 15px; 
+    cursor: pointer; 
 }
 
-button:hover {
-    background-color: #0056b3;
+.chat-box { 
+    flex: 1; 
+    padding: 20px; 
+    overflow-y: auto; 
+    /* వాట్సాప్ చాట్ బ్యాక్‌గ్రౌండ్ ఇమేజ్ */
+    background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+}
+
+.message { 
+    padding: 8px 12px; 
+    border-radius: 10px; 
+    max-width: 80%; 
+    font-size: 15px; 
+    word-wrap: break-word; 
+}
+
+.received { 
+    background-color: #fff; 
+    align-self: flex-start; 
+    border-top-left-radius: 0; 
+}
+
+.sent { 
+    background-color: #dcf8c6; /* మనం పంపే మెసేజ్ కి గ్రీన్ కలర్ */
+    align-self: flex-end; 
+    border-top-right-radius: 0; 
+}
+
+.chat-input { 
+    display: flex; 
+    padding: 10px; 
+    background: #f0f0f0; 
+    gap: 10px; 
+}
+
+#messageInput { 
+    flex: 1; 
+    padding: 12px; 
+    border: none; 
+    border-radius: 20px; 
+    outline: none; 
+    font-size: 15px; 
+}
+
+#sendBtn { 
+    background: #008f68; 
+    color: white; 
+    border: none; 
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    font-size: 18px; 
+    cursor: pointer; 
 }
