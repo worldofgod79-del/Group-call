@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WORLD OF GOD - Live Classes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mandali&family=Poppins:wght@400;500;600;700&family=Ramabhadra&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            font-family: 'Noto Sans Telugu', 'Roboto', sans-serif;
-            /* అందమైన నేచర్/సూర్యోదయం బ్యాక్‌గ్రౌండ్, దానిపైన డార్క్ షేడ్ */
+            /* సాధారణ టెక్స్ట్ కోసం మండలి ఫాంట్ */
+            font-family: 'Mandali', 'Poppins', sans-serif;
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
             color: #ffffff;
@@ -20,7 +20,7 @@
             flex-direction: column;
         }
 
-        /* పైన ఉండే నావిగేషన్ బార్ */
+        /* హెడర్ డిజైన్ (Poppins ఫాంట్) */
         .header {
             display: flex;
             justify-content: space-between;
@@ -29,6 +29,7 @@
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Poppins', sans-serif;
         }
 
         .logo-section {
@@ -41,7 +42,7 @@
         }
 
         .logo-section span {
-            color: #f1c40f; /* గోల్డెన్ ఎల్లో కలర్ */
+            color: #f1c40f; 
             font-weight: 700;
             margin-right: 10px;
             font-size: 28px;
@@ -50,10 +51,10 @@
         .time-date {
             font-size: 16px;
             color: #e0e0e0;
-            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
 
-        /* మధ్యలో ఉండే కంటెంట్ (Glassmorphism డిజైన్) */
         .landing-container {
             flex: 1;
             display: flex;
@@ -64,7 +65,6 @@
             text-align: center;
         }
 
-        /* అద్దం లాంటి ఎఫెక్ట్ ఇచ్చే కార్డ్ */
         .glass-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(12px);
@@ -72,42 +72,45 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 50px 40px;
             border-radius: 20px;
-            max-width: 700px;
+            max-width: 750px;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
 
-        /* వాక్యం స్టైల్స్ */
+        /* బైబిల్ వాక్యం స్టైల్ (Ramabhadra ఫాంట్) */
         .bible-verse {
-            font-size: 26px;
-            font-weight: 600;
-            color: #f1c40f; /* గోల్డ్ కలర్ */
+            font-family: 'Ramabhadra', sans-serif;
+            font-size: 28px;
+            color: #f1c40f; 
             margin-bottom: 15px;
-            line-height: 1.5;
+            line-height: 1.6;
             text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
         }
 
         .verse-ref {
+            font-family: 'Poppins', sans-serif;
             font-size: 16px;
             color: #dcdde1;
             margin-bottom: 30px;
-            font-style: italic;
+            font-weight: 500;
+            letter-spacing: 1px;
         }
 
         .sub-text {
-            font-size: 18px;
+            font-family: 'Mandali', sans-serif;
+            font-size: 20px;
             color: #f5f6fa;
             margin-bottom: 40px;
             line-height: 1.6;
         }
 
-        /* క్లాస్ లో జాయిన్ అయ్యే బటన్ */
+        /* జాయిన్ బటన్ */
         .join-btn {
+            font-family: 'Mandali', sans-serif;
             background: linear-gradient(135deg, #1a73e8, #2892f0);
             color: white;
             border: none;
             padding: 16px 40px;
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 22px;
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(26, 115, 232, 0.4);
@@ -115,7 +118,6 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            font-family: 'Noto Sans Telugu', sans-serif;
         }
 
         .join-btn:hover {
@@ -127,13 +129,13 @@
             transform: translateY(1px);
         }
 
-        /* మొబైల్ ఫోన్స్ కోసం రెస్పాన్సివ్ సెట్టింగ్స్ */
         @media (max-width: 768px) {
             .header { padding: 15px 20px; }
             .time-date { display: none; }
             .glass-card { padding: 30px 20px; margin: 15px; }
-            .bible-verse { font-size: 22px; }
-            .join-btn { padding: 14px 30px; font-size: 18px; }
+            .bible-verse { font-size: 24px; }
+            .sub-text { font-size: 18px; }
+            .join-btn { padding: 14px 30px; font-size: 20px; }
         }
     </style>
 </head>
@@ -164,7 +166,6 @@
     </div>
 
     <script>
-        // లైవ్ టైమ్ చూపించడానికి
         function updateTime() {
             const now = new Date();
             const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
@@ -174,7 +175,6 @@
         setInterval(updateTime, 1000);
         updateTime();
 
-        // బటన్ క్లిక్ చేయగానే మీటింగ్ స్టార్ట్ అయ్యే లాజిక్ (ఎర్రర్స్ లేకుండా)
         document.getElementById('startMeetBtn').addEventListener('click', function() {
             const wogRoomUrl = 'https://meet.jit.si/WOG_Daily_Classes_Live_Room#config.disableDeepLinking=true&config.prejoinPageEnabled=false&userInfo.displayName="WOG_Member"';
             window.location.href = wogRoomUrl;
