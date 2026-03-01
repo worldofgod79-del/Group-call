@@ -3,37 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Clone - Group Call</title>
-    <link rel="stylesheet" href="style.css">
+    <title>WOG Daily Classes</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+        /* వీడియో కాల్ స్క్రీన్ మొత్తం కవర్ అవ్వడానికి */
+        #wog-meet-container {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+    <script src="https://meet.jit.si/external_api.js"></script>
 </head>
 <body>
-    <div class="app-container">
-        <header class="chat-header">
-            <div class="user-info">
-                <div class="avatar">W</div>
-                <div class="name-status">
-                    <h2>World of God గ్రూప్</h2>
-                    <p>ఆన్‌లైన్</p>
-                </div>
-            </div>
-            <div class="header-icons">
-                <button id="videoCallBtn">📹</button>
-                <button id="audioCallBtn">📞</button>
-            </div>
-        </header>
 
-        <main class="chat-box" id="chatBox">
-            <div class="message received">హాయ్! గ్రూప్ కాలింగ్ యాప్ రెడీ అయిందా?</div>
-            <div class="message sent">అవును, వీడియో కాల్ బటన్ నొక్కితే కాల్ కనెక్ట్ అవుతుంది!</div>
-        </main>
+    <div id="wog-meet-container"></div>
 
-        <footer class="chat-input">
-            <input type="text" id="messageInput" placeholder="మెసేజ్ టైప్ చేయండి...">
-            <button id="sendBtn">➤</button>
-        </footer>
-    </div>
+    <script>
+        window.onload = () => {
+            const domain = 'meet.jit.si';
+            const options = {
+                roomName: 'WOG_Daily_Classes_Live', // మీ క్లాస్ రూమ్ పేరు
+                width: '100%',
+                height: '100%',
+                parentNode: document.querySelector('#wog-meet-container'),
+                userInfo: {
+                    displayName: 'Rajesh Karatapu' // హోస్ట్ గా మీ పేరు
+                },
+                configOverwrite: {
+                    startWithAudioMuted: false,
+                    startWithVideoMuted: false,
+                    prejoinPageEnabled: true // జాయిన్ అయ్యే ముందు పేరు అడగడానికి
+                }
+            };
+            
+            // మీ వెబ్ పేజీలో కాలింగ్ యాప్ ని స్టార్ట్ చేసే ఫంక్షన్
+            const api = new JitsiMeetExternalAPI(domain, options);
+        }
+    </script>
 
-    <script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
-    <script src="app.js"></script>
 </body>
 </html>
