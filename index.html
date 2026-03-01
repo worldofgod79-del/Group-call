@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WOG Custom Live Class</title>
+    <title>WOG Meet - Daily Classes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://meet.jit.si/external_api.js"></script>
     <style>
         body, html {
@@ -11,156 +12,168 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: #0d1117; /* డార్క్ థీమ్ */
-            font-family: Arial, sans-serif;
-            color: white;
+            font-family: 'Roboto', sans-serif;
+            background-color: #ffffff; /* క్లీన్ వైట్ బ్యాక్‌గ్రౌండ్ */
+            color: #202124;
+            overflow: hidden;
+        }
+
+        /* పైన ఉండే నావిగేషన్ బార్ */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: 500;
+            color: #5f6368;
+        }
+
+        .logo-section span {
+            color: #1a73e8; /* గూగుల్ బ్లూ కలర్ */
+            font-weight: 700;
+            margin-right: 8px;
+            font-size: 26px;
+        }
+
+        .time-date {
+            font-size: 18px;
+            color: #5f6368;
+        }
+
+        /* మెయిన్ కంటెంట్ (గూగుల్ మీట్ లాంటి లేఅవుట్) */
+        .landing-container {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-        }
-
-        /* పైన మన యాప్ పేరు */
-        .wog-header {
-            width: 100%;
-            padding: 15px 0;
-            background: linear-gradient(90deg, #1a2a6c, #b21f1f, #fdbb2d);
+            height: calc(100vh - 70px);
+            padding: 20px;
             text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            z-index: 10;
         }
 
-        /* వీడియో కనిపించే ప్రదేశం */
-        #video-frame {
-            width: 100%;
-            flex: 1;
-            background-color: #000;
+        .hero-text {
+            font-size: 44px;
+            font-weight: 400;
+            margin-bottom: 15px;
+            color: #202124;
         }
 
-        /* మన సొంత కంట్రోల్ బటన్స్ ఉండే బార్ */
-        .custom-controls {
-            width: 100%;
-            height: 80px;
-            background-color: #161b22;
-            display: none; /* క్లాస్ స్టార్ట్ అయ్యాక కనిపిస్తుంది */
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.5);
-        }
-
-        /* బటన్స్ డిజైన్ */
-        .control-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-
-        .btn-mic, .btn-cam, .btn-share { background-color: #2ea043; color: white; }
-        .btn-end { background-color: #da3633; color: white; transform: rotate(135deg); }
-
-        .control-btn:active { transform: scale(0.9); }
-
-        /* స్టార్ట్ బటన్ */
-        #start-screen {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #startClassBtn {
-            background-color: #2ea043;
-            color: white;
-            padding: 15px 40px;
+        .sub-text {
             font-size: 18px;
+            color: #5f6368;
+            margin-bottom: 40px;
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        /* అచ్చం గూగుల్ మీట్ బటన్ లాంటి డిజైన్ */
+        .join-btn {
+            background-color: #1a73e8;
+            color: white;
             border: none;
-            border-radius: 30px;
+            padding: 15px 35px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 4px;
             cursor: pointer;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+            transition: background-color 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .join-btn:hover {
+            background-color: #1b66c9;
+            box-shadow: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+        }
+
+        /* మీటింగ్ కంటైనర్ (స్టార్టింగ్ లో దాగి ఉంటుంది) */
+        #meet-wrapper {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #000;
+        }
+
+        /* మొబైల్ ఫోన్స్ కోసం డిజైన్ సెట్టింగ్స్ */
+        @media (max-width: 768px) {
+            .hero-text { font-size: 32px; }
+            .header { padding: 15px; }
+            .time-date { display: none; } /* మొబైల్ లో టైమ్ దాచేస్తాం */
         }
     </style>
 </head>
 <body>
 
-    <div class="wog-header">WORLD OF GOD - LIVE CLASS</div>
+    <div id="landing-page">
+        <div class="header">
+            <div class="logo-section">
+                <span>WOG</span> Meet
+            </div>
+            <div class="time-date" id="live-time"></div>
+        </div>
 
-    <div id="start-screen">
-        <button id="startClassBtn">▶ Start Class</button>
+        <div class="landing-container">
+            <h1 class="hero-text">Premium video meetings.<br>Now for WOG Classes.</h1>
+            <p class="sub-text">We re-engineered our service to provide secure, high-quality video meetings for everyone. Completely free and built for the World of God community.</p>
+            
+            <button class="join-btn" id="startMeetBtn">
+                <span style="font-size: 20px;">🎥</span> Join Live Class
+            </button>
+        </div>
     </div>
 
-    <div id="video-frame" style="display: none;"></div>
-
-    <div class="custom-controls" id="wog-controls">
-        <button class="control-btn btn-mic" id="micBtn" title="Mute/Unmute">🎤</button>
-        <button class="control-btn btn-cam" id="camBtn" title="Video On/Off">📷</button>
-        <button class="control-btn btn-share" id="shareBtn" title="Share Screen">💻</button>
-        <button class="control-btn btn-end" id="endBtn" title="End Call">📞</button>
-    </div>
+    <div id="meet-wrapper"></div>
 
     <script>
-        let api = null;
+        // లైవ్ టైమ్ చూపించడానికి చిన్న కోడ్ (Google Meet లో లాగా)
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            const dateString = now.toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: 'numeric'});
+            document.getElementById('live-time').innerText = timeString + ' • ' + dateString;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
 
-        document.getElementById('startClassBtn').addEventListener('click', function() {
-            // స్టార్ట్ బటన్ తీసేసి, వీడియో మరియు మన కంట్రోల్స్ చూపించడం
-            document.getElementById('start-screen').style.display = 'none';
-            document.getElementById('video-frame').style.display = 'block';
-            document.getElementById('wog-controls').style.display = 'flex';
+        // క్లాస్ జాయిన్ బటన్ లాజిక్
+        document.getElementById('startMeetBtn').addEventListener('click', function() {
+            // లాండింగ్ పేజీ దాచిపెట్టి, వీడియో కాలింగ్ స్క్రీన్ చూపించడం
+            document.getElementById('landing-page').style.display = 'none';
+            const meetWrapper = document.getElementById('meet-wrapper');
+            meetWrapper.style.display = 'block';
 
             const domain = 'meet.jit.si';
             const options = {
                 roomName: 'WOG_Daily_Classes_Live_Room',
                 width: '100%',
                 height: '100%',
-                parentNode: document.querySelector('#video-frame'),
-                userInfo: { displayName: 'Rajesh Karatapu' },
+                parentNode: meetWrapper,
+                userInfo: {
+                    displayName: 'WOG Member'
+                },
                 configOverwrite: {
                     startWithAudioMuted: false,
                     startWithVideoMuted: false,
-                    prejoinPageEnabled: false, 
-                    disableDeepLinking: true
-                },
-                interfaceConfigOverwrite: {
-                    // Jitsi వాళ్ళ బటన్స్ అన్నీ హైడ్ చేస్తున్నాం! (ఖాళీగా పెట్టాం)
-                    TOOLBAR_BUTTONS: [], 
-                    // వాటర్ మార్క్స్, లోగోలు అన్నీ కనపడకుండా ఆఫ్ చేస్తున్నాం
-                    SHOW_JITSI_WATERMARK: false,
-                    SHOW_WATERMARK_FOR_GUESTS: false,
-                    SHOW_BRAND_WATERMARK: false,
-                    SHOW_POWERED_BY: false,
-                    DEFAULT_BACKGROUND: '#000000'
+                    prejoinPageEnabled: false, // Jitsi వాళ్ళ లాండింగ్ పేజీ రాకుండా
+                    disableDeepLinking: true // డైరెక్ట్ బ్రౌజర్ లో రన్ అవ్వడానికి
                 }
+                // గమనిక: interfaceConfigOverwrite ని పూర్తిగా తీసేశాను. 
+                // కాబట్టి రికార్డింగ్, స్క్రీన్ షేర్ లాంటి వాళ్ళ ఒరిజినల్ ఫీచర్స్ అన్నీ వస్తాయి.
             };
             
-            api = new JitsiMeetExternalAPI(domain, options);
-        });
-
-        // మన HTML బటన్స్ ని Jitsi కి కనెక్ట్ చేయడం
-        document.getElementById('micBtn').addEventListener('click', () => {
-            api.executeCommand('toggleAudio');
-        });
-
-        document.getElementById('camBtn').addEventListener('click', () => {
-            api.executeCommand('toggleVideo');
-        });
-
-        document.getElementById('shareBtn').addEventListener('click', () => {
-            api.executeCommand('toggleShareScreen');
-        });
-
-        document.getElementById('endBtn').addEventListener('click', () => {
-            api.dispose(); // కాల్ కట్ చేయడం
-            document.getElementById('video-frame').style.display = 'none';
-            document.getElementById('wog-controls').style.display = 'none';
-            document.getElementById('start-screen').style.display = 'flex';
+            const api = new JitsiMeetExternalAPI(domain, options);
         });
     </script>
 </body>
