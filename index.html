@@ -3,48 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WOG Daily Classes</title>
+    <title>WOG Daily Classes App</title>
+    
+    <script src="https://meet.jit.si/external_api.js"></script>
+
     <style>
-        body, html {
+        /* బేసిక్ పేజీ స్టైల్స్ */
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-        }
-        /* వీడియో కాల్ స్క్రీన్ మొత్తం కవర్ అవ్వడానికి */
-        #wog-meet-container {
-            width: 100vw;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
             height: 100vh;
         }
+
+        /* పైన ఉండే హెడర్ */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* మెయిన్ కంటైనర్ (కాలమ్స్ కోసం) */
+        .app-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* ఎడమ వైపు కాలమ్ (మీ WOG యాప్ ఫీచర్స్ కోసం) */
+        .sidebar {
+            width: 30%;
+            background-color: #ffffff;
+            border-right: 2px solid #ddd;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        .feature-item {
+            padding: 10px;
+            background-color: #ecf0f1;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* కుడి వైపు కాలమ్ (వీడియో కాలింగ్ కోసం) */
+        .main-content {
+            width: 70%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #e9ecef;
+        }
+
+        /* క్లాస్ స్టార్ట్ చేసే బటన్ స్టైల్ */
+        #startClassBtn {
+            background-color: #27ae60;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        #startClassBtn:hover {
+            background-color: #2ecc71;
+        }
+
+        /* వీడియో కాలింగ్ కనిపించే డబ్బా (Container) */
+        #wog-meet-container {
+            width: 100%;
+            height: 100%;
+            display: none; /* బటన్ నొక్కే వరకు దాగి ఉంటుంది */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* మొబైల్ ఫోన్స్ కోసం రెస్పాన్సివ్ డిజైన్ */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 2px solid #ddd;
+            }
+            .main-content {
+                width: 100%;
+                height: 500px; /* మొబైల్ లో వీడియో బాక్స్ హైట్ */
+            }
+        }
     </style>
-    <script src="https://meet.jit.si/external_api.js"></script>
 </head>
 <body>
 
-    <div id="wog-meet-container"></div>
+    <header>WORLD OF GOD (WOG) - Daily Classes</header>
+
+    <div class="app-container">
+        
+        <div class="sidebar">
+            <h3>WOG App Features</h3>
+            <div class="feature-item">📖 Bible Study Materials</div>
+            <div class="feature-item">🎵 WOG Songs / Lyrics</div>
+            <div class="feature-item">🖼️ Daily Posters</div>
+            <div class="feature-item">📝 Articles</div>
+            </div>
+
+        <div class="main-content">
+            <button id="startClassBtn">🎥 Join Live Class</button>
+            
+            <div id="wog-meet-container"></div>
+        </div>
+
+    </div>
 
     <script>
-        window.onload = () => {
+        document.getElementById('startClassBtn').addEventListener('click', function() {
+            // బటన్ నొక్కగానే కాలింగ్ బాక్స్ కనిపించేలా చేయడం
+            const meetContainer = document.getElementById('wog-meet-container');
+            meetContainer.style.display = 'block';
+            
+            // జాయిన్ బటన్ ని హైడ్ చేయడం
+            this.style.display = 'none';
+
+            // Jitsi Meet సెట్టింగ్స్
             const domain = 'meet.jit.si';
             const options = {
-                roomName: 'WOG_Daily_Classes_Live', // మీ క్లాస్ రూమ్ పేరు
+                roomName: 'WOG_Daily_Classes_Live_Room', // మీ క్లాస్ రూమ్ పేరు
                 width: '100%',
-                height: '100%',
-                parentNode: document.querySelector('#wog-meet-container'),
+                height: '100%', // కంటైనర్ సైజుకి ఆటోమేటిక్ గా సెట్ అవుతుంది
+                parentNode: meetContainer,
                 userInfo: {
-                    displayName: 'Rajesh Karatapu' // హోస్ట్ గా మీ పేరు
+                    displayName: 'WOG Member' // డిఫాల్ట్ పేరు
                 },
                 configOverwrite: {
-                    startWithAudioMuted: false,
+                    startWithAudioMuted: true, // జాయిన్ అవ్వగానే మైక్ మ్యూట్ లో ఉండాలంటే true పెట్టండి
                     startWithVideoMuted: false,
-                    prejoinPageEnabled: true // జాయిన్ అయ్యే ముందు పేరు అడగడానికి
+                    prejoinPageEnabled: false, // డైరెక్ట్ గా యాప్ లోనే జాయిన్ అవ్వడానికి
+                    disableDeepLinking: true // బ్రౌజర్ లోనే కంటిన్యూ అవ్వడానికి
+                },
+                interfaceConfigOverwrite: {
+                    // మీకు వద్దు అనుకున్న బటన్స్ తీసేయడానికి (ఆప్షనల్)
+                    TOOLBAR_BUTTONS: [
+                        'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
+                        'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
+                        'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+                        'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
+                        'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone',
+                        'security'
+                    ]
                 }
             };
             
-            // మీ వెబ్ పేజీలో కాలింగ్ యాప్ ని స్టార్ట్ చేసే ఫంక్షన్
+            // మీ యాప్ లోపలే మీటింగ్ స్టార్ట్ అవుతుంది
             const api = new JitsiMeetExternalAPI(domain, options);
-        }
+        });
     </script>
 
 </body>
